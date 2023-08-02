@@ -1,20 +1,23 @@
 package com.example.hogwarts32.service;
 
+import com.example.hogwarts32.exception.FacultyNotFoundException;
 import com.example.hogwarts32.exception.StudentNotFoundException;
+import com.example.hogwarts32.model.Faculty;
 import com.example.hogwarts32.model.Student;
+import com.example.hogwarts32.repository.FacultyRepository;
 import org.springframework.stereotype.Service;
 import com.example.hogwarts32.repository.StudentRepository;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
+    private final FacultyRepository facultyRepository;
 
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository, FacultyRepository facultyRepository) {
         this.studentRepository = studentRepository;
+        this.facultyRepository = facultyRepository;
     }
 
 
@@ -46,5 +49,13 @@ public class StudentService {
 
     public Collection<Student> getAllByAge(int age) {
         return studentRepository.findAllByAge(age);
+    }
+
+    public Collection<Student> getByAge(int min, int max) {
+        return studentRepository.findOfByAgeBetween(min, max);
+    }
+
+    public Collection<Student> getByFacultyId(Long facultyId){
+        return facultyRepository.findById(facultyId).map(Faculty::getStudents).orElseThrow(FacultyNotFoundException::new);
     }
 }

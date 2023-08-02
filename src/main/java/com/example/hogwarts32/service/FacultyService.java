@@ -1,7 +1,10 @@
 package com.example.hogwarts32.service;
 
 import com.example.hogwarts32.exception.FacultyNotFoundException;
+import com.example.hogwarts32.exception.StudentNotFoundException;
 import com.example.hogwarts32.model.Faculty;
+import com.example.hogwarts32.model.Student;
+import com.example.hogwarts32.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 import com.example.hogwarts32.repository.FacultyRepository;
 
@@ -10,9 +13,11 @@ import java.util.Collection;
 @Service
 public class FacultyService {
     private final FacultyRepository facultyRepository;
+    private final StudentRepository studentRepository;
 
-    public FacultyService(FacultyRepository facultyRepository) {
+    public FacultyService(FacultyRepository facultyRepository, StudentRepository studentRepository) {
         this.facultyRepository = facultyRepository;
+        this.studentRepository = studentRepository;
     }
 
     public Faculty getById(Long id) {
@@ -41,5 +46,13 @@ public class FacultyService {
 
     public Collection<Faculty> getAllByColor(String color) {
         return facultyRepository.findAllByColor(color);
+    }
+
+    public Collection<Faculty> getAllByNameOrColor(String name, String color) {
+        return facultyRepository.findAllByColorLikeIgnoreCaseOOrNameLikeIgnoreCase(color, name);
+    }
+
+    public Faculty getByStudentId(Long studentId) {
+        return studentRepository.findById(studentId).map(Student::getFaculty).orElseThrow(StudentNotFoundException::new);
     }
 }
