@@ -1,15 +1,13 @@
-package service;
+package com.example.hogwarts32.service;
 
-import exception.StudentAlreadyExistsExeption;
-import exception.StudentNotFoundException;
-import model.Student;
+import com.example.hogwarts32.exception.StudentNotFoundException;
+import com.example.hogwarts32.model.Student;
 import org.springframework.stereotype.Service;
-import repository.StudentRepository;
+import com.example.hogwarts32.repository.StudentRepository;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -19,8 +17,6 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    private static Long COUNTER = 0L;
-    private final Map<Long, Student> storage = new HashMap<>();
 
     public Student create(Student student) {
         return studentRepository.save(student);
@@ -34,12 +30,12 @@ public class StudentService {
     }
 
     public Student getById(Long id) {
-        return storage.get(id);
+        return studentRepository.findById(id).orElseThrow(StudentNotFoundException::new);
 
     }
 
     public Collection<Student> getAll() {
-        return storage.values();
+        return studentRepository.findAll();
     }
 
     public Student remove(Long id) {

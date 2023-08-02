@@ -1,8 +1,8 @@
-package controller;
+package com.example.hogwarts32.controller;
 
-import model.Faculty;
+import com.example.hogwarts32.model.Faculty;
 import org.springframework.web.bind.annotation.*;
-import service.FacultyService;
+import com.example.hogwarts32.service.FacultyService;
 
 import java.util.Collection;
 

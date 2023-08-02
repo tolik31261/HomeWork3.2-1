@@ -1,6 +1,6 @@
-package repository;
+package com.example.hogwarts32.repository;
 
-import model.Student;
+import com.example.hogwarts32.model.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

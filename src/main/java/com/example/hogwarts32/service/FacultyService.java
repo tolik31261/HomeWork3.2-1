@@ -1,15 +1,11 @@
-package service;
+package com.example.hogwarts32.service;
 
-import exception.FacultyAlreadyExistsExeption;
-import exception.FacultyNotFoundException;
-import model.Faculty;
+import com.example.hogwarts32.exception.FacultyNotFoundException;
+import com.example.hogwarts32.model.Faculty;
 import org.springframework.stereotype.Service;
-import repository.FacultyRepository;
+import com.example.hogwarts32.repository.FacultyRepository;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class FacultyService {

@@ -1,4 +1,4 @@
-package exception;
+package com.example.hogwarts32.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
